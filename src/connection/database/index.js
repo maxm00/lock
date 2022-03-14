@@ -5,7 +5,8 @@ import {
   clearFields,
   getFieldValue,
   setField,
-  registerOptionField
+  registerOptionField,
+  getContext
 } from '../../field/index';
 import { dataFns } from '../../utils/data_utils';
 import sync from '../../sync';
@@ -546,12 +547,12 @@ function resolveAdditionalSignUpTextField(m, x) {
     m = sync(m, key, {
       recoverResult: '',
       successFn: (m, result) => {
-        return setField(m, name, result, validator);
+        return setField(m, name, result, validator, getContext(m));
       },
       syncFn: (m, cb) => prefill(cb)
     });
   } else {
-    m = setField(m, name, resolvedPrefill, validator);
+    m = setField(m, name, resolvedPrefill, validator, getContext(m));
   }
 
   return m;

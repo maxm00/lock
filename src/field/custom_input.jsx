@@ -1,6 +1,6 @@
 import React from 'react';
 import { changeField, startOptionSelection } from './actions';
-import { getFieldInvalidHint, getFieldLabel, getFieldValue, isFieldVisiblyInvalid } from './index';
+import { getFieldInvalidHint, getFieldLabel, getFieldValue, isFieldVisiblyInvalid, getContext } from './index';
 import TextInput from '../ui/input/text_input';
 import SelectInput from '../ui/input/select_input';
 import CheckboxInput from '../ui/input/checkbox_input';
@@ -39,7 +39,7 @@ const CustomInput = ({
       return (
         <CheckboxInput
           lockId={l.id(model)}
-          onChange={e => changeField(l.id(model), name, `${e.target.checked}`, validator)}
+          onChange={e => changeField(l.id(model), name, `${e.target.checked}`, validator, getContext(model))}
           checked={getFieldValue(model, name)}
           placeholderHTML={placeholderHTML}
           {...props}
@@ -52,7 +52,7 @@ const CustomInput = ({
         <TextInput
           lockId={l.id(model)}
           invalidHint={getFieldInvalidHint(model, name)}
-          onChange={e => changeField(l.id(model), name, e.target.value, validator)}
+          onChange={e => changeField(l.id(model), name, e.target.value, validator, getContext(model))}
           value={getFieldValue(model, name)}
           {...props}
         />

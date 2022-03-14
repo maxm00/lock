@@ -152,6 +152,19 @@ export function getFieldLabel(m, field, notFound = '') {
   return getField(m, field).get('label', notFound);
 }
 
+export function getAllFields(m, notFound = new Map({})) {
+  return m.get('field', notFound);
+}
+
+export function getContext(m) {
+  let sensitiveFields = ['password', 'captcha'];
+
+  return getAllFields(m)
+    .filter(x => !sensitiveFields.includes(x.get('name')))
+    .map(x => x.get('value'))
+    .toObject();
+}
+
 // phone number
 
 export function phoneNumber(lock) {
